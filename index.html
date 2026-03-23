@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Speed · классические спортивные автомобили</title>
+    <!-- Шрифты: Playfair Display для элегантности, Rajdhani для техничности -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== Глобальные стили ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #f5f5f5; font-family: 'Rajdhani', sans-serif; color: #1e1e1e; line-height: 1.5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: #ffffff; border-bottom: 3px solid #c9a45b; padding: 16px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header__wrapper { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+        .logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+        .logo__main { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 2rem; color: #1e1e1e; letter-spacing: 2px; }
+        .logo__sub { font-weight: 600; font-size: 0.9rem; color: #c9a45b; letter-spacing: 4px; text-transform: uppercase; }
+        .header__nav { display: flex; gap: 32px; }
+        .nav__link { color: #333; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; transition: color 0.2s; }
+        .nav__link:hover, .nav__link.active { color: #c9a45b; }
+        .header__phone { color: #c9a45b; font-weight: 700; font-size: 1.2rem; text-decoration: none; border: 1px solid #c9a45b; padding: 8px 16px; border-radius: 40px; background: white; }
+        .header__burger { display: none; background: none; border: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .promo { padding: 50px 0 30px; }
+        .promo__wrapper { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .promo__content { flex: 1 1 400px; }
+        .promo__title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 4rem; line-height: 1; color: #1e1e1e; text-transform: uppercase; text-shadow: 5px 5px 0 #e0e0e0; margin-bottom: 30px; }
+        .promo__features { border-left: 6px solid #c9a45b; padding-left: 24px; background: linear-gradient(90deg, #f0f0f0, transparent); padding: 20px 0 20px 30px; border-radius: 0 20px 20px 0; }
+        .promo__feature { font-size: 1.6rem; font-weight: 700; color: #1e1e1e; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+        .promo__feature i { color: #c9a45b; width: 40px; font-size: 2rem; }
+        .promo__feature-text { font-weight: 500; font-size: 1.3rem; }
+        .promo__image { flex: 1 1 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 30px -8px rgba(0,0,0,0.15); border: 2px solid #c9a45b; }
+        .promo__img { width: 100%; height: auto; display: block; transition: transform 0.3s; }
+        .promo__img:hover { transform: scale(1.02); }
+        .separator { border: 1px dashed #c9a45b; margin: 20px 0; }
+        .brands-table-section { background: #f8f9fa; padding: 40px 0; border-top: 2px solid #c9a45b; border-bottom: 2px solid #c9a45b; }
+        .section-header { margin-bottom: 30px; }
+        .section-title { font-size: 2.4rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; text-align: center; }
+        .brands-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 15px; }
+        .brand-item { background: #ffffff; padding: 12px 5px; font-size: 1rem; font-weight: 600; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border-radius: 16px; box-shadow: 0 6px 12px -6px rgba(0,0,0,0.1); transition: all 0.2s ease; font-family: 'Rajdhani', sans-serif; text-align: center; border: 1px solid #eaeaea; }
+        .brand-item img { width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); transition: transform 0.2s ease; }
+        .brand-item:hover { transform: translateY(-4px); box-shadow: 0 12px 16px -8px rgba(0,0,0,0.15); border-color: #c9a45b; }
+        .brand-item:hover img { transform: scale(1.1); }
+        @media (max-width: 900px) { .brands-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 600px) { .brands-grid { grid-template-columns: repeat(2, 1fr); } }
+        .quick-request { padding: 60px 0; background: #ffffff; text-align: center; }
+        .quick-request__title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 16px; }
+        .quick-request__subtitle { font-size: 1.3rem; color: #666; margin-bottom: 40px; }
+        .special-offers { padding: 40px 0 60px; background: #f5f5f5; }
+        .special-offers__main-title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center; }
+        .offers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .offer-item { background: #ffffff; border-radius: 16px; padding: 30px; border: 1px solid #c9a45b; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.2s; display: flex; flex-direction: column; height: 100%; }
+        .offer-item:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .car-image { width: 180px; height: 180px; border-radius: 16px; overflow: hidden; margin: 0 auto 25px auto; border: 3px solid #c9a45b; box-shadow: 0 6px 14px rgba(0,0,0,0.1); background: #f0f0f0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .car-image img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+        .offer-item h3 { font-size: 2rem; font-weight: 700; color: #1e1e1e; margin-bottom: 20px; font-family: 'Playfair Display', serif; border-bottom: 2px solid #c9a45b; padding-bottom: 12px; }
+        .offer-item p { font-size: 1.1rem; color: #555; margin-bottom: 10px; line-height: 1.6; }
+        .offer-item p strong { font-weight: 700; color: #333; min-width: 130px; display: inline-block; }
+        .offer-price-block { margin: 20px 0 15px; background: #f9f9f9; padding: 15px; border-radius: 14px; border-left: 4px solid #c9a45b; flex-grow: 1; }
+        .offer-price { font-size: 1.3rem; font-weight: 700; color: #888; text-decoration: line-through; margin-bottom: 6px; }
+        .offer-price-from { font-size: 1.1rem; margin-bottom: 6px; color: #333; }
+        .from-text { color: #333; font-weight: 400; }
+        .from-value { color: #c9a45b; font-weight: 700; }
+        .offer-credit { font-size: 1.1rem; color: #333; font-weight: 600; }
+        .offer-btn { margin-top: 20px; }
+        .offer-btn .btn { width: 100%; padding: 14px; font-size: 1.1rem; }
+        .best-offers-simple { padding: 60px 0; background: #ffffff; }
+        .best-offers-simple__title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center; }
+        .offers-simple-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .offer-simple-item { background: #f9f9f9; border-radius: 16px; padding: 25px 20px; border: 1px solid #c9a45b; text-align: center; font-size: 1.3rem; font-weight: 600; color: #333; transition: 0.2s; }
+        .offer-simple-item:hover { background: #ffffff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .credit-calculator { padding: 40px 0 60px; background: #f5f5f5; }
+        .credit-calculator__title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center; }
+        .calculator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: #ffffff; border-radius: 30px; padding: 40px; border: 1px solid #c9a45b; box-shadow: 0 10px 0 #e0e0e0; }
+        .calculator-left { display: flex; flex-direction: column; gap: 25px; }
+        .calculator-left select, .calculator-left input { width: 100%; padding: 14px 18px; background: #f9f9f9; border: 1px solid #c9a45b; color: #333; font-weight: 500; border-radius: 50px; font-size: 1rem; }
+        .calculator-left .car-image { margin: 0 auto 10px auto; width: 300px; height: 300px; }
+        .color-selector { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .color-dot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; transition: 0.2s; }
+        .color-dot:hover { transform: scale(1.1); border-color: #c9a45b; }
+        .color-dot.red { background: #e63946; }
+        .color-dot.blue { background: #1e3a8a; }
+        .color-dot.black { background: #1e1e1e; }
+        .color-dot.white { background: #ffffff; border: 2px solid #aaa; }
+        .color-dot.gray { background: #808080; }
+        .price-block { margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 14px; border-left: 4px solid #c9a45b; }
+        .old-price { font-size: 1.3rem; color: #888; text-decoration: line-through; margin-bottom: 5px; }
+        .new-price { font-size: 2rem; font-weight: 700; color: #c9a45b; }
+        .price-note { font-size: 0.9rem; color: #666; margin-top: 5px; font-style: italic; }
+        .trade-in-checkbox { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
+        .trade-in-checkbox input { width: 20px; height: 20px; accent-color: #c9a45b; }
+        .slider-labels { display: flex; justify-content: space-between; margin: 10px 0 5px; font-weight: 600; color: #333; }
+        .slider-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+        .slider-btn { padding: 8px 16px; background: #f0f0f0; border: 1px solid #ccc; border-radius: 30px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
+        .slider-btn.active { background: #c9a45b; color: white; border-color: #c9a45b; }
+        .slider-btn:hover { background: #c9a45b; color: white; border-color: #c9a45b; }
+        .calculator-right { background: #f9f9f9; border-radius: 20px; padding: 30px; border: 1px solid #c9a45b; }
+        .params-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .param-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #ccc; }
+        .param-label { font-weight: 600; color: #333; }
+        .param-value { font-weight: 700; color: #c9a45b; }
+        .credit-note { font-size: 0.85rem; color: #777; margin: 15px 0; font-style: italic; }
+        .btn-credit { margin-top: 20px; }
+        .btn { font-family: 'Rajdhani', sans-serif; font-weight: 700; border: none; cursor: pointer; transition: all 0.1s; font-size: 1.2rem; border-radius: 60px; }
+        .btn--primary { background: #c9a45b; color: #ffffff; padding: 16px 38px; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 6px 0 #7f653a; width: 100%; font-weight: 700; }
+        .btn--primary:hover { background: #b88f45; transform: translateY(2px); box-shadow: 0 3px 0 #5f4b2c; }
+        .btn--outline { background: transparent; border: 2px solid #c9a45b; color: #333; padding: 12px 32px; }
+        .btn--outline:hover { background: #c9a45b; color: white; }
+        .btn--block { display: block; width: 100%; }
+        .loan-conditions { padding: 60px 0; background: #ffffff; }
+        .loan-conditions__title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center; }
+        .conditions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        .conditions-block { background: #f9f9f9; border-radius: 20px; padding: 30px; border: 1px solid #c9a45b; }
+        .conditions-block h3 { font-size: 2rem; font-weight: 700; color: #1e1e1e; margin-bottom: 20px; font-family: 'Playfair Display', serif; border-bottom: 2px solid #c9a45b; padding-bottom: 10px; }
+        .conditions-list { list-style: none; }
+        .conditions-list li { font-size: 1.1rem; color: #555; margin-bottom: 12px; padding-left: 25px; position: relative; }
+        .conditions-list li::before { content: "•"; color: #c9a45b; font-size: 1.5rem; position: absolute; left: 0; top: -5px; }
+        .partners-section { margin-bottom: 50px; text-align: center; }
+        .partners-section h3 { font-size: 2rem; font-weight: 700; color: #1e1e1e; margin-bottom: 30px; font-family: 'Playfair Display', serif; border-bottom: 2px solid #c9a45b; padding-bottom: 10px; display: inline-block; }
+        .partners-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 600px; margin: 0 auto; }
+        .partner-row { background: #f9f9f9; border: 1px solid #c9a45b; border-radius: 50px; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 1.1rem; font-weight: 600; color: #333; }
+        .partner-row span:first-child { color: #c9a45b; }
+        .questions-block { background: #f9f9f9; border-radius: 20px; padding: 40px; border: 1px solid #c9a45b; margin-bottom: 30px; text-align: center; }
+        .questions-block h3 { font-size: 2rem; font-weight: 700; color: #1e1e1e; margin-bottom: 15px; font-family: 'Playfair Display', serif; }
+        .questions-block p { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
+        .loan-note { font-size: 0.9rem; color: #888; font-style: italic; border-top: 1px dashed #c9a45b; padding-top: 20px; margin-top: 20px; text-align: left; }
+        .loan-note a { color: #c9a45b; text-decoration: none; }
+        .advantages { padding: 60px 0; background: #ffffff; }
+        .advantages__title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center; }
+        .advantages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .advantage-item { padding: 25px; background: #f9f9f9; border-radius: 20px; border: 1px solid #c9a45b; font-size: 1.2rem; font-weight: 600; color: #333; display: flex; align-items: center; gap: 15px; transition: 0.2s; }
+        .advantage-item i { color: #c9a45b; font-size: 2rem; min-width: 40px; }
+        .advantage-item:hover { background: #ffffff; transform: translateX(5px); }
+        .map-section { padding: 60px 0; background: #f5f5f5; }
+        .map-section__title { font-size: 2.8rem; font-weight: 700; color: #1e1e1e; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center; }
+        .map-container { border: 3px solid #c9a45b; border-radius: 30px; overflow: hidden; box-shadow: 0 15px 25px -8px rgba(0,0,0,0.2); }
+        .map-container iframe { display: block; width: 100%; height: 450px; border: 0; }
+        @media (max-width: 600px) { .map-container iframe { height: 300px; } }
+        .auto-dinamika { background: #ffffff; padding: 60px 0; border-top: 2px solid #c9a45b; }
+        .auto-dinamika .container { display: flex; gap: 60px; flex-wrap: wrap; }
+        .auto-dinamika__left { flex: 1 1 300px; }
+        .auto-dinamika__right { flex: 2 1 500px; }
+        .auto-dinamika__title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 2.5rem; color: #1e1e1e; margin-bottom: 20px; }
+        .auto-dinamika__info { display: flex; flex-direction: column; gap: 15px; }
+        .info-item { display: flex; align-items: center; gap: 12px; font-size: 1.1rem; }
+        .info-item i { color: #c9a45b; font-size: 1.4rem; width: 30px; }
+        .info-item a, .info-item span { color: #333; text-decoration: none; }
+        .info-item a:hover { color: #c9a45b; }
+        .auto-dinamika__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .auto-dinamika__block h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #1e1e1e; margin-bottom: 15px; }
+        .auto-dinamika__list { list-style: none; }
+        .auto-dinamika__list li { margin-bottom: 10px; font-size: 1rem; color: #555; display: flex; align-items: center; gap: 8px; }
+        .auto-dinamika__list li i { color: #c9a45b; width: 18px; font-size: 1rem; }
+        .footer { background: #ffffff; padding: 40px 0 20px; border-top: 2px solid #c9a45b; }
+        .footer__top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
+        .footer__logo { display: flex; flex-direction: column; }
+        .footer__nav { display: flex; gap: 32px; }
+        .footer__link { color: #666; text-decoration: none; }
+        .footer__link:hover { color: #c9a45b; }
+        .footer__bottom { display: flex; justify-content: space-between; color: #888; border-top: 1px solid #e0e0e0; padding-top: 20px; flex-wrap: wrap; gap: 15px; }
+        @media (max-width: 900px) { .header__nav { display: none; } .header__burger { display: flex; } .promo__title { font-size: 3rem; } .offers-grid { grid-template-columns: repeat(2, 1fr); } .offers-simple-grid { grid-template-columns: repeat(2, 1fr); } .calculator-grid { grid-template-columns: 1fr; } .conditions-grid { grid-template-columns: 1fr; } .partners-grid { grid-template-columns: 1fr; } .auto-dinamika__grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .offers-grid { grid-template-columns: 1fr; } .offers-simple-grid { grid-template-columns: 1fr; } .auto-dinamika__grid { grid-template-columns: 1fr; } }
+
+        /* ========== Модальные окна ========== */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
+        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 20px; border: 2px solid #c9a45b; border-radius: 30px; width: 90%; max-width: 1200px; position: relative; box-shadow: 0 20px 30px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .close:hover, .close:focus { color: #c9a45b; text-decoration: none; }
+        .modal-body { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 30px; }
+        .modal-car-info { flex: 1 1 350px; background: #f9f9f9; border-radius: 20px; padding: 20px; border: 1px solid #c9a45b; }
+        .modal-car-info img { width: 100%; max-width: 300px; display: block; margin: 0 auto 20px; border-radius: 16px; border: 2px solid #c9a45b; }
+        .modal-car-info h3 { font-size: 2rem; margin-bottom: 15px; color: #1e1e1e; border-bottom: 2px solid #c9a45b; padding-bottom: 8px; }
+        .modal-car-info p { font-size: 1.1rem; margin-bottom: 10px; color: #555; }
+        .modal-car-info p strong { color: #333; min-width: 140px; display: inline-block; }
+        .modal-features { margin-top: 20px; }
+        .modal-features h4 { font-size: 1.3rem; margin-bottom: 10px; color: #c9a45b; }
+        .modal-features ul { list-style: none; padding-left: 0; }
+        .modal-features li { margin-bottom: 8px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .modal-features li i { color: #c9a45b; width: 20px; }
+        .modal-credit { flex: 2 1 500px; background: #ffffff; border-radius: 20px; padding: 20px; border: 1px solid #c9a45b; }
+        .modal-credit .slider-section { margin: 20px 0; }
+        .modal-credit .price-block { margin: 15px 0; }
+        .modal-credit .params-list { margin-bottom: 20px; }
+        .modal-form { margin-top: 25px; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+        .modal-form .form-group { margin-bottom: 20px; }
+        .modal-form label { display: block; font-weight: 600; color: #555; margin-bottom: 6px; font-size: 1rem; }
+        .modal-form input, .modal-form select, .modal-form textarea { width: 100%; padding: 12px 16px; background: #f9f9f9; border: 1px solid #c9a45b; color: #333; font-weight: 500; border-radius: 50px; font-size: 1rem; }
+        .modal-form textarea { border-radius: 20px; resize: vertical; }
+        .radio-group { display: flex; gap: 20px; margin-top: 5px; }
+        .radio-group label { display: inline-flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; }
+        .radio-group input { width: auto; margin-right: 5px; }
+        .small-modal .modal-content { max-width: 550px; }
+        .small-modal .modal-body { display: block; }
+        .small-modal .modal-body .form-group { margin-bottom: 20px; }
+        .small-modal .modal-body label { display: block; font-weight: 600; color: #555; margin-bottom: 6px; font-size: 1rem; }
+        .small-modal .modal-body input, .small-modal .modal-body select { width: 100%; padding: 14px 18px; background: #f9f9f9; border: 1px solid #c9a45b; border-radius: 50px; font-size: 1rem; }
+        .small-modal .modal-body .btn { width: 100%; margin-top: 10px; }
+        .modal-title { font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: #1e1e1e; text-align: center; font-family: 'Playfair Display', serif; }
+        @media (max-width: 768px) { .modal-content { margin: 10% auto; width: 95%; } .modal-body { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__wrapper">
+                <a href="#" class="logo"><span class="logo__main">OLD</span><span class="logo__sub">CARS</span></a>
+                <nav class="header__nav">
+                     <a href="index.html" class="nav__link active">Главная</a>
+                    <a href="cars.html" class="nav__link">Автомобили</a>
+                    <a href="about.html" class="nav__link">О нас</a>
+                    <a href="contacts.html" class="nav__link">Контакты</a>
+                </nav>
+                <div class="header__contacts"><a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a></div>
+                <button class="header__burger"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="promo">
+        <div class="container">
+            <div class="promo__wrapper">
+                <div class="promo__content">
+                    <h1 class="promo__title">АВТОСАЛОН<br>РАРИТЕТНЫХ МАШИН!</h1>
+                    <div class="promo__features">
+                        <div class="promo__feature"><i class="fas fa-flag-checkered"></i><span class="promo__feature-text">Автомобили 1970 / 2012 года</span></div>
+                        <div class="promo__feature"><i class="fas fa-exchange-alt"></i><span class="promo__feature-text">Скидка на трейд-ин до 30%</span></div>
+                        <div class="promo__feature"><i class="fas fa-percent"></i><span class="promo__feature-text">Автокредит 4.9%</span></div>
+                    </div>
+                </div>
+                <div class="promo__image"><img src="https://i.pinimg.com/originals/2c/99/c6/2c99c63fab854ea33b7afa132ad12a8e.jpg" alt="Nissan Skyline GT-R" class="promo__img"></div>
+            </div>
+        </div>
+    </section>
+    <div class="divider"><div class="container"><hr class="separator"></div></div>
+
+    <section class="brands-table-section">
+        <div class="container">
+            <div class="section-header"><h2 class="section-title">ПРОДАЖА АВТОМОБИЛЕЙ В МОСКВЕ</h2></div>
+            <div class="brands-grid">
+                <div class="brand-item"><img src="https://i.pinimg.com/originals/6a/75/66/6a7566b6e66d3bd5400892c2983cf1ef.png" alt="Audi"> Audi</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=b5f1ba8c39b8ba1a1f42b878aa17fc73_l-5236343-images-thumbs&n=13" alt="BMW"> BMW</div>
+                <div class="brand-item"><img src="https://i.pinimg.com/originals/06/40/97/064097be55cef2345ca31e48c5e5502e.png" alt="Mazda"> Mazda</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=8554384a559b73acd2b5afc0ae779855-4747135-images-thumbs&n=13" alt="Mercedes"> Mercedes</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=843e3278ead171752d7a366accc371475ddf9f28-4706584-images-thumbs&n=13" alt="Toyota"> Toyota</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=88f1c0647fbecf66c26b6a6e086ecb94374a420d-12526488-images-thumbs&n=13" alt="Mitsubishi"> Mitsubishi</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=83ddcf391a283eba596e3d804e8a17fe_l-4719838-images-thumbs&n=13" alt="Subaru"> Subaru</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=4c40211f20173a1ea2eb9ce890084b5d_l-5338433-images-thumbs&n=13" alt="Honda"> Honda</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=4d30b1ac9dc24a1c10b162c39524ab21b4840448-5232459-images-thumbs&n=13" alt="VW"> Volkswagen</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=9500b09c62ade7be75fdaee88b4efa5a5a22fb75-5228069-images-thumbs&n=13" alt="Dodge"> Dodge</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=2de1bb7c8ca494a81493f158d1295f4ca503aff4-5491132-images-thumbs&n=13" alt="Nissan"> Nissan</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=ea2b0f7f7e33a1a43c106d4317fa640e8b953aa5-10671814-images-thumbs&n=13" alt="Jeep"> Jeep</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=99cfa46d559645e6dcccaead4f4b026544900620-5231980-images-thumbs&n=13" alt="Hyundai"> Hyundai</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=c90967fc26b95644723e48b9ebc521f0cf3736a5-4577098-images-thumbs&n=13" alt="Renault"> Renault</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=6e14ef31e84825e2d8f10252699b7932d87314de-5234675-images-thumbs&n=13" alt="Lexus"> Lexus</div>
+                <div class="brand-item"><img src="https://avatars.mds.yandex.net/i?id=dbc29c2ce81cafc1562998b53817156c7b8a9568-4572045-images-thumbs&n=13" alt="Peugeot"> Peugeot</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quick-request">
+        <div class="container">
+            <h2 class="quick-request__title">Заявка в один клик</h2>
+            <p class="quick-request__subtitle">Нажмите на кнопку, чтобы заполнить заявку в удобном окне.</p>
+            <button class="btn btn--primary" id="openQuickRequestBtn" style="width: auto; display: inline-block; padding: 16px 48px;">Оставить заявку</button>
+        </div>
+    </section>
+
+    <section class="special-offers">
+        <div class="container">
+            <h2 class="special-offers__main-title">Специальные предложения</h2>
+            <div class="offers-grid">
+                <!-- Toyota Supra -->
+                <div class="offer-item" data-make="Toyota" data-model="Supra" data-year="1994" data-transmission="Механика" data-engine="2.0-3.0л" data-price="2500000" data-old-price="3900000" data-image="https://avatars.mds.yandex.net/get-shedevrum/14794476/img_c3f0a014be4f11efab8346b028de434e/orig" data-power="280 л.с." data-acceleration="5.5 с" data-drive="Задний" data-body="Купе" data-features="ABS, Климат-контроль, Электростеклоподъемники, Легкосплавные диски, Кожаный салон">
+                    <div class="car-image"><img src="https://avatars.mds.yandex.net/get-shedevrum/14794476/img_c3f0a014be4f11efab8346b028de434e/orig" alt="Toyota Supra"></div>
+                    <h3>Toyota Supra</h3>
+                    <p><strong>Год выпуска:</strong> 1994</p>
+                    <p><strong>КПП:</strong> Механика</p>
+                    <p><strong>Объем двигателя:</strong> 2.0-3.0л</p>
+                    <div class="offer-price-block"><div class="offer-price">Цена: 3 900 000 руб.</div><div class="offer-price-from"><span class="from-text">от:</span> <span class="from-value">2 500 000 руб.</span></div><div class="offer-credit">В кредит: от 50 000 руб/месяц</div></div>
+                    <div class="offer-btn"><button class="btn btn--outline">Подробнее</button></div>
+                </div>
+                <!-- Honda Civic -->
+                <div class="offer-item" data-make="Honda" data-model="Civic" data-year="1999" data-transmission="Автомат" data-engine="1.4-1.6л" data-price="300000" data-old-price="500000" data-image="https://avatars.mds.yandex.net/i?id=19daa770ed6d60917d35b39f5cd1ab19_l-7544273-images-thumbs&n=13" data-power="130 л.с." data-acceleration="9.8 с" data-drive="Передний" data-body="Хэтчбек" data-features="ABS, Кондиционер, Электростеклоподъемники, Аудиосистема, Подушка безопасности">
+                    <div class="car-image"><img src="https://avatars.mds.yandex.net/i?id=19daa770ed6d60917d35b39f5cd1ab19_l-7544273-images-thumbs&n=13" alt="Honda Civic"></div>
+                    <h3>Honda Civic</h3>
+                    <p><strong>Год выпуска:</strong> 1999</p>
+                    <p><strong>КПП:</strong> Автомат</p>
+                    <p><strong>Объем двигателя:</strong> 1.4-1.6л</p>
+                    <div class="offer-price-block"><div class="offer-price">Цена: 500 000 руб.</div><div class="offer-price-from"><span class="from-text">от:</span> <span class="from-value">300 000 руб.</span></div><div class="offer-credit">В кредит: от 20 000 руб/месяц</div></div>
+                    <div class="offer-btn"><button class="btn btn--outline">Подробнее</button></div>
+                </div>
+                <!-- Skyline GT-R R34 -->
+                <div class="offer-item" data-make="Nissan" data-model="Skyline GT-R R34" data-year="1998" data-transmission="Механика" data-engine="2.6л" data-price="2350000" data-old-price="3900000" data-image="https://i.pinimg.com/originals/2c/99/c6/2c99c63fab854ea33b7afa132ad12a8e.jpg" data-power="280 л.с." data-acceleration="5.2 с" data-drive="Полный" data-body="Купе" data-features="ABS, ATTESA E-TS, Super-HICAS, Кожаный салон, Климат-контроль">
+                    <div class="car-image"><img src="https://i.pinimg.com/originals/2c/99/c6/2c99c63fab854ea33b7afa132ad12a8e.jpg" alt="Nissan Skyline GT-R"></div>
+                    <h3>Skyline GT-R R34</h3>
+                    <p><strong>Год выпуска:</strong> 1998</p>
+                    <p><strong>КПП:</strong> Механика</p>
+                    <p><strong>Объем двигателя:</strong> 2.6л</p>
+                    <div class="offer-price-block"><div class="offer-price">Цена: 3 900 000 руб.</div><div class="offer-price-from"><span class="from-text">от:</span> <span class="from-value">2 350 000 руб.</span></div><div class="offer-credit">В кредит: от 50 000 руб/месяц</div></div>
+                    <div class="offer-btn"><button class="btn btn--outline">Подробнее</button></div>
+                </div>
+                <!-- Mitsubishi Lancer Evolution VI -->
+                <div class="offer-item" data-make="Mitsubishi" data-model="Lancer Evolution VI" data-year="1999" data-transmission="Механика" data-engine="2.0л" data-price="2200000" data-old-price="3000000" data-image="https://avatars.mds.yandex.net/i?id=823320917db76c6ce6779c27e12fcece_l-5234812-images-thumbs&n=13" data-power="280 л.с." data-acceleration="4.9 с" data-drive="Полный" data-body="Седан" data-features="ABS, AYC, Активный дифференциал, Кондиционер, Легкосплавные диски">
+                    <div class="car-image"><img src="https://avatars.mds.yandex.net/i?id=823320917db76c6ce6779c27e12fcece_l-5234812-images-thumbs&n=13" alt="Mitsubishi Lancer Evolution VI"></div>
+                    <h3>Mitsubishi Lancer Evolution VI</h3>
+                    <p><strong>Год выпуска:</strong> 1999</p>
+                    <p><strong>КПП:</strong> Механика</p>
+                    <p><strong>Объем двигателя:</strong> 2.0л</p>
+                    <div class="offer-price-block"><div class="offer-price">Цена: 3 000 000 руб.</div><div class="offer-price-from"><span class="from-text">от:</span> <span class="from-value">2 200 000 руб.</span></div><div class="offer-credit">В кредит: от 40 000 руб/месяц</div></div>
+                    <div class="offer-btn"><button class="btn btn--outline">Подробнее</button></div>
+                </div>
+                <!-- Mazda RX-7 -->
+                <div class="offer-item" data-make="Mazda" data-model="RX-7" data-year="1997" data-transmission="Механика" data-engine="2.55л" data-price="3000000" data-old-price="4900000" data-image="https://avatars.mds.yandex.net/i?id=9f0319cc4c8c02a44c99928951048a2861603c21-5232882-images-thumbs&n=13" data-power="280 л.с." data-acceleration="5.1 с" data-drive="Задний" data-body="Купе" data-features="ABS, Двухроторный двигатель, Кожаный салон, Климат-контроль, BOSE аудиосистема">
+                    <div class="car-image"><img src="https://avatars.mds.yandex.net/i?id=9f0319cc4c8c02a44c99928951048a2861603c21-5232882-images-thumbs&n=13" alt="Mazda RX-7"></div>
+                    <h3>Mazda RX-7</h3>
+                    <p><strong>Год выпуска:</strong> 1997</p>
+                    <p><strong>КПП:</strong> Механика</p>
+                    <p><strong>Объем двигателя:</strong> 2.55л</p>
+                    <div class="offer-price-block"><div class="offer-price">Цена: 4 900 000 руб.</div><div class="offer-price-from"><span class="from-text">от:</span> <span class="from-value">3 000 000 руб.</span></div><div class="offer-credit">В кредит: от 60 000 руб/месяц</div></div>
+                    <div class="offer-btn"><button class="btn btn--outline">Подробнее</button></div>
+                </div>
+                <!-- Dodge Charger SRT-8 -->
+                <div class="offer-item" data-make="Dodge" data-model="Charger SRT-8" data-year="2012" data-transmission="Автомат" data-engine="6.4л" data-price="3900000" data-old-price="5000000" data-image="https://avatars.mds.yandex.net/i?id=ca12dbe537f1143ff8e30250449ca747d9a67695-5335037-images-thumbs&n=13" data-power="470 л.с." data-acceleration="4.5 с" data-drive="Задний" data-body="Седан" data-features="ABS, ESP, Кожаный салон, Подогрев сидений, Навигация, Harman Kardon">
+                    <div class="car-image"><img src="https://avatars.mds.yandex.net/i?id=ca12dbe537f1143ff8e30250449ca747d9a67695-5335037-images-thumbs&n=13" alt="Dodge Charger SRT-8"></div>
+                    <h3>Dodge Charger SRT-8</h3>
+                    <p><strong>Год выпуска:</strong> 2012</p>
+                    <p><strong>КПП:</strong> Автомат</p>
+                    <p><strong>Объем двигателя:</strong> 6.4л</p>
+                    <div class="offer-price-block"><div class="offer-price">Цена: 5 000 000 руб.</div><div class="offer-price-from"><span class="from-text">от:</span> <span class="from-value">3 900 000 руб.</span></div><div class="offer-credit">В кредит: от 70 000 руб/месяц</div></div>
+                    <div class="offer-btn"><button class="btn btn--outline">Подробнее</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="best-offers-simple">
+        <div class="container">
+            <h2 class="best-offers-simple__title">Лучшие предложения на покупку автомобиля</h2>
+            <div class="offers-simple-grid">
+                <div class="offer-simple-item">Семейный автомобиль</div>
+                <div class="offer-simple-item">Первый автомобиль</div>
+                <div class="offer-simple-item">Выгодный Trade-In</div>
+                <div class="offer-simple-item">Ставки по кредитам от 4.9%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="credit-calculator">
+        <div class="container">
+            <h2 class="credit-calculator__title">Кредитный калькулятор</h2>
+            <div class="calculator-grid">
+                <div class="calculator-left">
+                    <div class="car-image"><img id="credit-car-img" src="https://avatars.mds.yandex.net/i?id=9f0319cc4c8c02a44c99928951048a2861603c21-5232882-images-thumbs&n=13" alt="Mazda RX-7"></div>
+                    <select id="car-brand-select"><option>Марка: Toyota</option><option>Марка: Honda</option><option>Марка: Nissan</option><option>Марка: Audi</option><option>Марка: BMW</option><option selected>Марка: Mazda</option><option>Марка: Mercedes</option><option>Марка: Mitsubishi</option><option>Марка: Subaru</option><option>Марка: Volkswagen</option><option>Марка: Dodge</option><option>Марка: Jeep</option><option>Марка: Hyundai</option><option>Марка: Renault</option><option>Марка: Lexus</option><option>Марка: Peugeot</option></select>
+                    <select id="car-model-select"><option>Комплектация: Comfort</option><option>Комплектация: Luxury</option><option>Комплектация: Base</option></select>
+                    <div class="color-selector"><span style="font-weight:600;">Цвет:</span><div class="color-dot red" data-color="Красный" data-img="https://cdn11.bigcommerce.com/s-22pnm3w06x/images/stencil/728x728/products/616/1524/3848a2_5b48c85fe9184036a93c35c7ef66875d~mv2__01839.1591572396.jpg?c=2" title="Красный"></div><div class="color-dot blue" data-color="Синий" data-img="https://i.ebayimg.com/images/g/bEMAAOSwkHxnatZ~/s-l1600.jpg" title="Синий"></div><div class="color-dot black" data-color="Черный" data-img="https://www.pngplay.com/wp-content/uploads/13/Mazda-RX-7-Transparent-PNG.png" title="Черный"></div><div class="color-dot white" data-color="Белый" data-img="https://avatars.mds.yandex.net/i?id=9f0319cc4c8c02a44c99928951048a2861603c21-5232882-images-thumbs&n=13" title="Белый"></div><div class="color-dot gray" data-color="Серый" data-img="https://m.media-amazon.com/images/I/618hEwIeBsL._AC_UF894,1000_QL80_.jpg" title="Серый"></div></div>
+                    <div class="price-block"><div class="old-price">6 900 000 руб.*</div><div class="new-price">4 500 000 руб.</div><div class="price-note">*Цена указана с максимальной скидкой по программе выгодной автокредита.</div></div>
+                    <div class="trade-in-checkbox"><input type="checkbox" id="trade-in"><label for="trade-in">Зачет стоимости автомобиля по программе Trade-In до 150 000 руб.</label></div>
+                    <div class="slider-section"><div class="slider-labels"><span>Первоначальный взнос</span><span id="downpayment-label">20% / 900 000 руб.</span></div><div class="slider-buttons" id="downpayment-buttons"><span class="slider-btn">10%</span><span class="slider-btn active">20%</span><span class="slider-btn">30%</span><span class="slider-btn">40%</span><span class="slider-btn">50%</span><span class="slider-btn">60%</span><span class="slider-btn">70%</span><span class="slider-btn">80%</span></div></div>
+                    <div class="slider-section"><div class="slider-labels"><span>Срок кредита</span><span id="term-label">48 месяцев</span></div><div class="slider-buttons" id="term-buttons"><span class="slider-btn">6</span><span class="slider-btn">12</span><span class="slider-btn">24</span><span class="slider-btn">36</span><span class="slider-btn active">48</span><span class="slider-btn">60</span><span class="slider-btn">72</span><span class="slider-btn">84</span><span class="slider-btn">96</span></div></div>
+                </div>
+                <div class="calculator-right">
+                    <div class="params-list"><div class="param-item"><span class="param-label">Марка:</span> <span class="param-value" id="calc-brand">Mazda</span></div><div class="param-item"><span class="param-label">Модель:</span> <span class="param-value" id="calc-model">RX-7</span></div><div class="param-item"><span class="param-label">Комплектация:</span> <span class="param-value" id="calc-trim">TYPE RS GF-FD3S 13B-REW FR 5MT</span></div><div class="param-item"><span class="param-label">Цвет:</span> <span class="param-value" id="color-value">Красный</span></div><div class="param-item"><span class="param-label">Стоимость:</span> <span class="param-value">4 500 000 руб.*</span></div></div>
+                    <div class="credit-note">*Цена указана с максимальной скидкой по программе выгодной автокредита.</div>
+                    <div class="params-list"><div class="param-item"><span class="param-label">Кредитная программа:</span> <span class="param-value">Avto Finance*</span></div><div class="param-item"><span class="param-label">Первоначальный взнос:</span> <span class="param-value" id="downpayment-value">900 000 руб.</span></div><div class="param-item"><span class="param-label">Срок кредитования:</span> <span class="param-value" id="term-value">48 месяцев</span></div><div class="param-item"><span class="param-label">Ежемесячный платеж:</span> <span class="param-value" id="monthly-payment">84 000 руб.</span></div><div class="param-item"><span class="param-label">Сумма платежа в день:</span> <span class="param-value" id="daily-payment">2 800 руб.</span></div><div class="param-item"><span class="param-label">Ставка:</span> <span class="param-value">4.6%*</span></div></div>
+                    <div class="credit-note">*Стоимость кредита по программе выгодной автокредита.</div>
+                    <div class="btn-credit"><button class="btn btn--primary btn--block" id="credit-submit-btn">Отправить заявку</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="loan-conditions">
+        <div class="container">
+            <h2 class="loan-conditions__title">Условия получения кредита</h2>
+            <div class="conditions-grid"><div class="conditions-block"><h3>Условия получения кредита</h3><ul class="conditions-list"><li>Сумма до 7 000 000 руб.</li><li>Срок кредита от 6 месяцев до 7 лет</li><li>Возможность сдать свой автомобиль в Trade-In</li><li>Досрочное погашение без штрафов и комиссий</li><li>Без обязательного КАСКО и страхования</li></ul></div><div class="conditions-block"><h3>Требования к получателю</h3><ul class="conditions-list"><li>Гражданство РФ</li><li>Возраст от 21 года до 65 лет</li><li>Паспорт и водительское удостоверение гражданина РФ</li><li>Трудовой стаж на последнем месте работы не менее 6 месяцев</li><li>Наличие постоянной регистрации на территории РФ</li></ul></div></div>
+            <div class="partners-section"><h3>Наши партнеры</h3><div class="partners-grid"><div class="partner-row"><span>СБЕРБАНК</span></div><div class="partner-row"><span>Т-БАНК</span></div><div class="partner-row"><span>ВТБ</span></div><div class="partner-row"><span>Альфа-Банк</span></div><div class="partner-row"><span>Банк ПСБ</span></div><div class="partner-row"><span>Газпромбанк</span></div></div></div>
+            <div class="questions-block">
+                <h3>Остались вопросы?</h3>
+                <p>Нажмите на кнопку — мы свяжемся с Вами в течение 10 минут и ответим на них.</p>
+                <button class="btn btn--primary" id="openQuestionsBtn" style="width: auto; display: inline-block; padding: 16px 48px;">Оставить заявку</button>
+                <div class="loan-note">Примечание: В случае, если вы хотите получить информацию о банке, обратитесь к официальному сайту банка или по телефону: <a href="tel:+74955555555">+7 (495) 555-55-55</a>.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="advantages">
+        <div class="container">
+            <h2 class="advantages__title">Преимущества обращения к нам</h2>
+            <div class="advantages-grid"><div class="advantage-item"><i class="fas fa-car"></i><span>Больший выбор автомобилей в наличии и под заказ</span></div><div class="advantage-item"><i class="fas fa-university"></i><span>Более 50 банков партнеров с выгодными условиями</span></div><div class="advantage-item"><i class="fas fa-hand-holding-usd"></i><span>Аутентичность. Автомобили с подтвержденной историей</span></div><div class="advantage-item"><i class="fas fa-clock"></i><span>Раритеты. Уникальные экземпляры ограниченных серий</span></div></div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h2 class="map-section__title">Схема проезда</h2>
+            <div class="map-container"><iframe src="https://yandex.ru/map-widget/v1/?ll=51.8167%2C55.6333&z=16&pt=51.8167,55.6333,pm2blm&text=Нижнекамск,%20Спортивная%20ул.,%204А" allowfullscreen="true" loading="lazy"></iframe></div>
+        </div>
+    </section>
+
+    <section class="auto-dinamika">
+        <div class="container">
+            <div class="auto-dinamika__left"><h2 class="auto-dinamika__title">OLD CARS</h2><div class="auto-dinamika__info"><div class="info-item"><i class="fas fa-clock"></i> <span>Ежедневно с 8:00 до 20:00</span></div><div class="info-item"><i class="fas fa-phone-alt"></i> <a href="tel:+74951234567">+7 (495) 123-45-67</a></div><div class="info-item"><i class="fas fa-envelope"></i> <a href="mailto:support@old-cars.com">support@old-cars.com</a></div><div class="info-item"><i class="fas fa-map-marker-alt"></i> <span>г. Нижнекамск, ул. Спортивная, 4А</span></div></div></div>
+            <div class="auto-dinamika__right"><div class="auto-dinamika__grid"><div class="auto-dinamika__block"><h3>Автомобили</h3><ul class="auto-dinamika__list"><li><i class="fas fa-car"></i> Раритетные автомобили</li><li><i class="fas fa-car-side"></i> Автомобили с пробегом</li><li><i class="fas fa-taxi"></i> Спортивные автомабили</li></ul></div><div class="auto-dinamika__block"><h3>Услуги</h3><ul class="auto-dinamika__list"><li><i class="fas fa-credit-card"></i> Кредит</li><li><i class="fas fa-exchange-alt"></i> Trade-In</li><li><i class="fas fa-hand-holding-usd"></i> Выкуп автомобилей</li></ul></div><div class="auto-dinamika__block"><h3>О компании</h3><ul class="auto-dinamika__list"><li><i class="fas fa-star"></i> Отзывы</li><li><i class="fas fa-phone-alt"></i> Контакты</li><li><i class="fas fa-sitemap"></i> Карта сайта</li></ul></div></div></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top"><div class="footer__logo"><span class="logo__main">OLD</span><span class="logo__sub">CARS</span></div><div class="footer__nav"><a href="#" class="footer__link">Главная</a><a href="#" class="footer__link">Автомобили</a><a href="#" class="footer__link">О нас</a><a href="#" class="footer__link">Контакты</a></div></div>
+            <div class="footer__bottom"><p class="footer__copyright">© 2025 Old Cars. Все права защищены.</p><p class="footer__policy"><a href="#">Политика конфиденциальности</a> | <a href="#">Пользовательское соглашение</a></p></div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно для подробной информации о машине (с расширенной формой) -->
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-car-info" id="modalCarInfo"></div>
+                <div class="modal-credit">
+                    <div class="price-block">
+                        <div class="old-price" id="modalOldPrice"></div>
+                        <div class="new-price" id="modalNewPrice"></div>
+                    </div>
+                    <div class="slider-section">
+                        <div class="slider-labels"><span>Первоначальный взнос</span><span id="modalDownpaymentLabel">20%</span></div>
+                        <div class="slider-buttons" id="modalDownpaymentButtons">
+                            <span class="slider-btn">10%</span><span class="slider-btn active">20%</span><span class="slider-btn">30%</span><span class="slider-btn">40%</span><span class="slider-btn">50%</span>
+                        </div>
+                    </div>
+                    <div class="slider-section">
+                        <div class="slider-labels"><span>Срок кредита</span><span id="modalTermLabel">48 месяцев</span></div>
+                        <div class="slider-buttons" id="modalTermButtons">
+                            <span class="slider-btn">12</span><span class="slider-btn">24</span><span class="slider-btn active">48</span><span class="slider-btn">60</span><span class="slider-btn">72</span>
+                        </div>
+                    </div>
+                    <div class="params-list">
+                        <div class="param-item"><span class="param-label">Ежемесячный платеж:</span> <span class="param-value" id="modalMonthlyPayment">0 руб.</span></div>
+                        <div class="param-item"><span class="param-label">Сумма платежа в день:</span> <span class="param-value" id="modalDailyPayment">0 руб.</span></div>
+                        <div class="param-item"><span class="param-label">Ставка:</span> <span class="param-value">4.6%</span></div>
+                    </div>
+                    <div class="modal-form">
+                        <h4 style="font-size:1.4rem; margin-bottom:15px; color:#c9a45b;">Оставить заявку</h4>
+                        <form id="carDetailForm">
+                            <div class="form-group">
+                                <label>Ваше имя *</label>
+                                <input type="text" id="carDetailName" placeholder="Иван Иванов" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Номер телефона *</label>
+                                <input type="tel" id="carDetailPhone" placeholder="+7 (999) 999-99-99" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Тип обращения</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="requestType" value="credit" checked> Кредит</label>
+                                    <label><input type="radio" name="requestType" value="testdrive"> Тест-драйв</label>
+                                    <label><input type="radio" name="requestType" value="consult"> Консультация</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Комментарий</label>
+                                <textarea id="carDetailComment" rows="2" placeholder="Дополнительная информация..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn--primary">Отправить заявку</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для заявки в один клик -->
+    <div id="quickRequestModal" class="modal small-modal">
+        <div class="modal-content">
+            <span class="close" id="closeQuickModal">&times;</span>
+            <div class="modal-body">
+                <h3 class="modal-title">Заявка в один клик</h3>
+                <form id="quickRequestFormModal">
+                    <div class="form-group">
+                        <label>Марка автомобиля</label>
+                        <select id="modalCarMake">
+                            <option>Audi</option><option>BMW</option><option>Toyota</option><option>Honda</option><option>Nissan</option><option>Mazda</option><option>Mercedes</option><option>Mitsubishi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Модель</label>
+                        <input type="text" id="modalCarModel" placeholder="Например, Supra">
+                    </div>
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="modalClientName" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Номер телефона</label>
+                        <input type="tel" id="modalClientPhone" placeholder="+7 (999) 999-99-99" required>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для "Остались вопросы" -->
+    <div id="questionsModal" class="modal small-modal">
+        <div class="modal-content">
+            <span class="close" id="closeQuestionsModal">&times;</span>
+            <div class="modal-body">
+                <h3 class="modal-title">Остались вопросы?</h3>
+                <form id="questionsFormModal">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="questionsName" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Номер телефона</label>
+                        <input type="tel" id="questionsPhone" placeholder="+7 (999) 999-99-99" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ваш вопрос (необязательно)</label>
+                        <input type="text" id="questionsText" placeholder="Напишите, что вас интересует">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Отправить вопрос</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для кредитного калькулятора -->
+    <div id="creditRequestModal" class="modal small-modal">
+        <div class="modal-content">
+            <span class="close" id="closeCreditModal">&times;</span>
+            <div class="modal-body">
+                <h3 class="modal-title">Оформление кредита</h3>
+                <form id="creditRequestForm">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="creditRequestName" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Номер телефона</label>
+                        <input type="tel" id="creditRequestPhone" placeholder="+7 (999) 999-99-99" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Желаемая сумма кредита (руб.)</label>
+                        <input type="text" id="creditRequestAmount" readonly style="background:#f0f0f0;">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ==================== 1. МОДАЛКА АВТОМОБИЛЯ С УЛУЧШЕННОЙ ФОРМОЙ ====================
+            const carModal = document.getElementById('carModal');
+            const closeCarModalBtn = carModal.querySelector('.close');
+            const modalCarInfo = document.getElementById('modalCarInfo');
+            let currentCarPrice = 0;
+            let currentCarData = {};
+
+            function updateModalCredit() {
+                const percent = parseInt(document.querySelector('#modalDownpaymentButtons .slider-btn.active')?.textContent || '20');
+                const months = parseInt(document.querySelector('#modalTermButtons .slider-btn.active')?.textContent || '48');
+                const downpayment = currentCarPrice * percent / 100;
+                const creditAmount = currentCarPrice - downpayment;
+                const annualRate = 4.6;
+                const monthlyRate = annualRate / 100 / 12;
+                let monthlyPayment = 0;
+                if (creditAmount > 0 && months > 0) {
+                    if (monthlyRate === 0) monthlyPayment = creditAmount / months;
+                    else {
+                        const factor = Math.pow(1 + monthlyRate, months);
+                        monthlyPayment = creditAmount * monthlyRate * factor / (factor - 1);
+                    }
+                }
+                monthlyPayment = Math.round(monthlyPayment);
+                const dailyPayment = Math.round(monthlyPayment / 30);
+                document.getElementById('modalMonthlyPayment').textContent = monthlyPayment.toLocaleString('ru-RU') + ' руб.';
+                document.getElementById('modalDailyPayment').textContent = dailyPayment.toLocaleString('ru-RU') + ' руб.';
+                document.getElementById('modalDownpaymentLabel').textContent = `${percent}% / ${downpayment.toLocaleString('ru-RU')} руб.`;
+                document.getElementById('modalTermLabel').textContent = months + ' месяцев';
+            }
+
+            function bindModalButtons() {
+                const downBtns = document.querySelectorAll('#modalDownpaymentButtons .slider-btn');
+                const termBtns = document.querySelectorAll('#modalTermButtons .slider-btn');
+                downBtns.forEach(btn => btn.addEventListener('click', function() {
+                    downBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    updateModalCredit();
+                }));
+                termBtns.forEach(btn => btn.addEventListener('click', function() {
+                    termBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    updateModalCredit();
+                }));
+            }
+
+            function openCarModal(carData) {
+                currentCarPrice = parseInt(carData.price);
+                currentCarData = carData;
+                const features = carData.features ? carData.features.split(',').map(f => f.trim()) : [];
+                const featuresHtml = features.length ? `<div class="modal-features"><h4><i class="fas fa-cogs"></i> Особенности:</h4><ul>${features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}</ul></div>` : '';
+                modalCarInfo.innerHTML = `
+                    <img src="${carData.image}" alt="${carData.make} ${carData.model}">
+                    <h3>${carData.make} ${carData.model}</h3>
+                    <p><strong>Год выпуска:</strong> ${carData.year}</p>
+                    <p><strong>КПП:</strong> ${carData.transmission}</p>
+                    <p><strong>Двигатель:</strong> ${carData.engine}</p>
+                    <p><strong>Мощность:</strong> ${carData.power || '—'}</p>
+                    <p><strong>Разгон 0-100 км/ч:</strong> ${carData.acceleration || '—'}</p>
+                    <p><strong>Привод:</strong> ${carData.drive || '—'}</p>
+                    <p><strong>Кузов:</strong> ${carData.body || '—'}</p>
+                    <p><strong>Цена со скидкой:</strong> ${carData.price.toLocaleString('ru-RU')} руб.</p>
+                    <p><strong>Старая цена:</strong> ${carData.oldPrice.toLocaleString('ru-RU')} руб.</p>
+                    ${featuresHtml}
+                `;
+                document.getElementById('modalOldPrice').textContent = carData.oldPrice.toLocaleString('ru-RU') + ' руб.';
+                document.getElementById('modalNewPrice').textContent = carData.price.toLocaleString('ru-RU') + ' руб.';
+                // Сброс активных кнопок
+                const downBtns = document.querySelectorAll('#modalDownpaymentButtons .slider-btn');
+                const termBtns = document.querySelectorAll('#modalTermButtons .slider-btn');
+                downBtns.forEach(btn => btn.classList.remove('active'));
+                termBtns.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('#modalDownpaymentButtons .slider-btn:nth-child(2)')?.classList.add('active');
+                document.querySelector('#modalTermButtons .slider-btn:nth-child(3)')?.classList.add('active');
+                updateModalCredit();
+                bindModalButtons();
+                // Очищаем форму
+                document.getElementById('carDetailName').value = '';
+                document.getElementById('carDetailPhone').value = '';
+                document.getElementById('carDetailComment').value = '';
+                document.querySelector('input[name="requestType"][value="credit"]').checked = true;
+                carModal.style.display = 'block';
+            }
+
+            function closeCarModal() { carModal.style.display = 'none'; }
+            closeCarModalBtn.onclick = closeCarModal;
+
+            // Обработчик отправки формы
+            const carDetailForm = document.getElementById('carDetailForm');
+            if (carDetailForm) {
+                carDetailForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('carDetailName').value.trim();
+                    const phone = document.getElementById('carDetailPhone').value.trim();
+                    const requestType = document.querySelector('input[name="requestType"]:checked').value;
+                    const comment = document.getElementById('carDetailComment').value.trim();
+                    if (!name || !phone) {
+                        alert('Пожалуйста, заполните имя и номер телефона');
+                        return;
+                    }
+                    let message = '';
+                    if (requestType === 'credit') {
+                        message = `Спасибо, ${name}! Ваша заявка на кредит для ${currentCarData.make} ${currentCarData.model} принята. Менеджер свяжется с вами по номеру ${phone}.`;
+                    } else if (requestType === 'testdrive') {
+                        message = `Спасибо, ${name}! Вы записаны на тест-драйв ${currentCarData.make} ${currentCarData.model}. Мы перезвоним вам по номеру ${phone} для подтверждения.`;
+                    } else {
+                        message = `Спасибо, ${name}! Ваш запрос на консультацию по ${currentCarData.make} ${currentCarData.model} принят. Мы свяжемся с вами по номеру ${phone}.`;
+                    }
+                    if (comment) message += `\nВаш комментарий: "${comment}"`;
+                    alert(message);
+                    carDetailForm.reset();
+                    closeCarModal();
+                });
+            }
+
+            // Навешиваем обработчики на кнопки "Подробнее"
+            const detailButtons = document.querySelectorAll('.offer-item .btn');
+            detailButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const offerItem = this.closest('.offer-item');
+                    if (!offerItem) return;
+                    const carData = {
+                        make: offerItem.dataset.make,
+                        model: offerItem.dataset.model,
+                        year: offerItem.dataset.year,
+                        transmission: offerItem.dataset.transmission,
+                        engine: offerItem.dataset.engine,
+                        price: parseInt(offerItem.dataset.price),
+                        oldPrice: parseInt(offerItem.dataset.oldPrice),
+                        image: offerItem.dataset.image,
+                        power: offerItem.dataset.power,
+                        acceleration: offerItem.dataset.acceleration,
+                        drive: offerItem.dataset.drive,
+                        body: offerItem.dataset.body,
+                        features: offerItem.dataset.features
+                    };
+                    openCarModal(carData);
+                });
+            });
+
+            // ==================== 2. МОДАЛКА ЗАЯВКИ В ОДИН КЛИК ====================
+            const quickModal = document.getElementById('quickRequestModal');
+            const openQuickBtn = document.getElementById('openQuickRequestBtn');
+            const closeQuick = document.getElementById('closeQuickModal');
+            const quickForm = document.getElementById('quickRequestFormModal');
+            if (openQuickBtn) openQuickBtn.addEventListener('click', () => quickModal.style.display = 'block');
+            if (closeQuick) closeQuick.addEventListener('click', () => quickModal.style.display = 'none');
+            if (quickForm) {
+                quickForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('modalClientName').value.trim();
+                    const phone = document.getElementById('modalClientPhone').value.trim();
+                    const carMake = document.getElementById('modalCarMake').value;
+                    const carModel = document.getElementById('modalCarModel').value.trim();
+                    if (!name || !phone) {
+                        alert('Пожалуйста, заполните имя и номер телефона');
+                        return;
+                    }
+                    alert(`Спасибо, ${name}! Ваша заявка на ${carMake} ${carModel} принята. Менеджер свяжется с вами по номеру ${phone}.`);
+                    quickForm.reset();
+                    quickModal.style.display = 'none';
+                });
+            }
+
+            // ==================== 3. МОДАЛКА "ОСТАЛИСЬ ВОПРОСЫ" ====================
+            const questionsModal = document.getElementById('questionsModal');
+            const openQuestionsBtn = document.getElementById('openQuestionsBtn');
+            const closeQuestions = document.getElementById('closeQuestionsModal');
+            const questionsFormModal = document.getElementById('questionsFormModal');
+            if (openQuestionsBtn) openQuestionsBtn.addEventListener('click', () => questionsModal.style.display = 'block');
+            if (closeQuestions) closeQuestions.addEventListener('click', () => questionsModal.style.display = 'none');
+            if (questionsFormModal) {
+                questionsFormModal.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('questionsName').value.trim();
+                    const phone = document.getElementById('questionsPhone').value.trim();
+                    const question = document.getElementById('questionsText').value.trim();
+                    if (!name || !phone) {
+                        alert('Пожалуйста, заполните имя и номер телефона');
+                        return;
+                    }
+                    alert(`Спасибо, ${name}! Ваш вопрос принят. Мы свяжемся с вами по номеру ${phone} в ближайшее время.`);
+                    questionsFormModal.reset();
+                    questionsModal.style.display = 'none';
+                });
+            }
+
+            // ==================== 4. МОДАЛКА КРЕДИТНОГО КАЛЬКУЛЯТОРА ====================
+            const creditModal = document.getElementById('creditRequestModal');
+            const closeCreditModal = document.getElementById('closeCreditModal');
+            const creditSubmitBtn = document.getElementById('credit-submit-btn');
+            const creditRequestForm = document.getElementById('creditRequestForm');
+
+            if (creditSubmitBtn) {
+                creditSubmitBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const carPriceMain = 4500000;
+                    const downPercent = parseInt(document.querySelector('#downpayment-buttons .slider-btn.active')?.textContent || '20');
+                    const creditAmount = carPriceMain - (carPriceMain * downPercent / 100);
+                    document.getElementById('creditRequestAmount').value = creditAmount.toLocaleString('ru-RU') + ' руб.';
+                    creditModal.style.display = 'block';
+                });
+            }
+            if (closeCreditModal) closeCreditModal.addEventListener('click', () => creditModal.style.display = 'none');
+            if (creditRequestForm) {
+                creditRequestForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('creditRequestName').value.trim();
+                    const phone = document.getElementById('creditRequestPhone').value.trim();
+                    if (!name || !phone) {
+                        alert('Пожалуйста, заполните имя и номер телефона');
+                        return;
+                    }
+                    alert(`Спасибо, ${name}! Ваша заявка на кредит принята. Менеджер свяжется с вами по номеру ${phone}.`);
+                    creditRequestForm.reset();
+                    creditModal.style.display = 'none';
+                });
+            }
+
+            // ==================== 5. КРЕДИТНЫЙ КАЛЬКУЛЯТОР НА ГЛАВНОЙ ====================
+            const carPriceMain = 4500000;
+            const annualRateMain = 4.6;
+            const monthlyRateMain = annualRateMain / 100 / 12;
+            const downpaymentLabelMain = document.getElementById('downpayment-label');
+            const downpaymentValueSpanMain = document.getElementById('downpayment-value');
+            const termLabelMain = document.getElementById('term-label');
+            const termValueSpanMain = document.getElementById('term-value');
+            const monthlyPaymentSpanMain = document.getElementById('monthly-payment');
+            const dailyPaymentSpanMain = document.getElementById('daily-payment');
+            const downpaymentButtonsMain = document.querySelectorAll('#downpayment-buttons .slider-btn');
+            const termButtonsMain = document.querySelectorAll('#term-buttons .slider-btn');
+            function calculateMain() {
+                let percent = 20;
+                downpaymentButtonsMain.forEach(btn => { if (btn.classList.contains('active')) percent = parseInt(btn.textContent); });
+                let months = 48;
+                termButtonsMain.forEach(btn => { if (btn.classList.contains('active')) months = parseInt(btn.textContent); });
+                const downpaymentAmount = carPriceMain * percent / 100;
+                const creditAmount = carPriceMain - downpaymentAmount;
+                if (downpaymentLabelMain) downpaymentLabelMain.textContent = `${percent}% / ${downpaymentAmount.toLocaleString('ru-RU')} руб.`;
+                if (downpaymentValueSpanMain) downpaymentValueSpanMain.textContent = downpaymentAmount.toLocaleString('ru-RU') + ' руб.';
+                if (termLabelMain) termLabelMain.textContent = months + ' месяцев';
+                if (termValueSpanMain) termValueSpanMain.textContent = months + ' месяцев';
+                let monthlyPayment = 0;
+                if (creditAmount > 0 && months > 0) {
+                    if (monthlyRateMain === 0) monthlyPayment = creditAmount / months;
+                    else {
+                        const factor = Math.pow(1 + monthlyRateMain, months);
+                        monthlyPayment = creditAmount * monthlyRateMain * factor / (factor - 1);
+                    }
+                }
+                monthlyPayment = Math.round(monthlyPayment);
+                const dailyPayment = Math.round(monthlyPayment / 30);
+                if (monthlyPaymentSpanMain) monthlyPaymentSpanMain.textContent = monthlyPayment.toLocaleString('ru-RU') + ' руб.';
+                if (dailyPaymentSpanMain) dailyPaymentSpanMain.textContent = dailyPayment.toLocaleString('ru-RU') + ' руб.';
+            }
+            downpaymentButtonsMain.forEach(btn => btn.addEventListener('click', function() { downpaymentButtonsMain.forEach(b => b.classList.remove('active')); this.classList.add('active'); calculateMain(); }));
+            termButtonsMain.forEach(btn => btn.addEventListener('click', function() { termButtonsMain.forEach(b => b.classList.remove('active')); this.classList.add('active'); calculateMain(); }));
+            calculateMain();
+
+            // Цвета в основном калькуляторе
+            const colorDots = document.querySelectorAll('.color-dot');
+            const carImage = document.getElementById('credit-car-img');
+            const colorValueSpan = document.getElementById('color-value');
+            colorDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const newColor = this.getAttribute('data-color');
+                    const newImgSrc = this.getAttribute('data-img');
+                    if (carImage && newImgSrc) carImage.src = newImgSrc;
+                    if (colorValueSpan && newColor) colorValueSpan.textContent = newColor;
+                });
+            });
+
+            // Закрытие модалок по клику на фон
+            window.addEventListener('click', function(event) {
+                if (event.target === carModal) closeCarModal();
+                if (event.target === quickModal) quickModal.style.display = 'none';
+                if (event.target === questionsModal) questionsModal.style.display = 'none';
+                if (event.target === creditModal) creditModal.style.display = 'none';
+            });
+            // Закрытие по Esc
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (carModal.style.display === 'block') closeCarModal();
+                    if (quickModal.style.display === 'block') quickModal.style.display = 'none';
+                    if (questionsModal.style.display === 'block') questionsModal.style.display = 'none';
+                    if (creditModal.style.display === 'block') creditModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
